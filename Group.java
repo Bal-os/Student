@@ -1,27 +1,45 @@
 package prog.kiev;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Arrays;
 
-public class Group {
-    private static final int NumOfStudents = 10;
-    private Comparator<Student> comparator = Comparator.comparing(obj -> obj.getSurname());
-    Student arr[];
+public class Group implements Recruite{
+    private static final int NUMOFSTUDS = 10;
+    Student arr[] = new Student[NUMOFSTUDS];
     String name;
     int count = 0;
 
+    private Comparator surnamesCompare = new HumanSurnameComparator();
+    private Comparator marksComparator = new StudentMarksComparator();
+    private Comparator ageComparator = new HumanAgeComparator();
+
     public Group(String name, Student ... arr) throws OutOfGroupException{
-        this.arr = new Student[NumOfStudents];
-        if(arr.length > 0) arr = Arrays.copyOf(arr, arr.length);
+        if(arr.length > 0) {
+            checkArray(arr);
+            this.arr = Arrays.copyOf(arr, arr.length);
+            count = arr.length;
+        }
         this.name = name;
     }
 
-    private Student[] checkArray(Student arr[]) throws OutOfGroupException {
-        if(arr.length > NumOfStudents) throw new OutOfGroupException("123");
-        count = arr.length;
-        Arrays.sort(arr,comparator);
-        return arr;
+    private void checkArray(Student arr[]) throws OutOfGroupException {
+        if(arr.length > NUMOFSTUDS) {
+            throw new OutOfGroupException("too much students");
+        }
+    }
+
+    public void sort(){
+        Arrays.sort(arr, surnamesCompare);
+    }
+
+    public void sortByMarks(){
+        Arrays.sort(arr, marksComparator);
+    }
+
+    public void sortByAge(){
+        Arrays.sort(arr, ageComparator);
     }
 
     public String getName() {
@@ -29,32 +47,48 @@ public class Group {
     }
 
     public Student find(String surname){
-        for(int i = 0; i < count; i++)
-        {
-            if(arr[i].getSurname().equals(surname))
+        for(int i = 0; i < count; i++) {
+            if (arr[i].getSurname().equalsIgnoreCase(surname)) {
                 return arr[i];
+            }
         }
         return null;
     }
 
     public boolean delete(int Id){
-        for(int i = 0; i < NumOfStudents; i++)
+        for(int i = 0; i < count; i++)
         {
             if(arr[i].getStudentId() == Id)
             {
-                arr[i] = new Student();
-                Arrays.sort(arr,comparator);
+                arr[i] = null;
+                this.sort();
                 count--;
+                return true;
             }
-            return true;
         }
         return false;
     }
 
-    public void Add(Student newMan) throws OutOfGroupException{
-        if(count >= NumOfStudents) throw new OutOfGroupException("");
+    public void add(Student newMan) throws OutOfGroupException{
+        if(count >= NUMOFSTUDS) {throw new OutOfGroupException("group is full");}
         arr[count] = newMan;
+        this.sort();
         count++;
+    }
+
+    @Override
+    public Student[] mobilize() {
+        ArrayList<Student> ans = new ArrayList<Student>();
+        this.sortByAge();
+        for(Student i: arr){
+            if(i.getAge() < 18){
+                break;
+            }
+            if(i.getSex() == Sex.MALE){
+                ans.add(i);
+            }
+        }
+        return ans.toArray(new Student[ans.size()]);
     }
 
     @Override

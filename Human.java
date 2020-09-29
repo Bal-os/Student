@@ -9,16 +9,18 @@ public class Human {
     private String surname;
     private String name;
     private Sex sex;
+    private int age;
 
     public Human() {
         this.surname = new String();
         this.name = new String();
     }
 
-    public Human(String surname, String name, Sex sex) {
+    public Human(String name, String surname, Sex sex, int age) {
         this.surname = surname;
         this.name = name;
         this.sex = sex;
+        this.age = age;
     }
 
     public String getSurname() {
@@ -33,12 +35,16 @@ public class Human {
         return sex;
     }
 
+    public int getAge() { return age; }
+
+
     @Override
     public String toString() {
         return "Human{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
                 ", sex=" + sex +
+                ", age=" + age +
                 '}';
     }
 }
