@@ -1,6 +1,9 @@
 package prog.kiev;
 
-public class Student extends Human {
+import java.io.Serializable;
+
+public class Student extends Human implements Serializable{
+    private static final long serialVersionUID = 1L;
     private int studentId;
     private double midMark;
 
@@ -13,6 +16,11 @@ public class Student extends Human {
         this.studentId = studentId;
         this.midMark = midMark;
     }
+    public Student(Human human, int studentId, double midMark) {
+        super(human.getName(), human.getSurname(), human.getSex(), human.getAge());
+        this.studentId = studentId;
+        this.midMark = midMark;
+    }
 
     public int getStudentId() {
         return studentId;
@@ -22,11 +30,10 @@ public class Student extends Human {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studentId=" + studentId +
-                ", midMark=" + midMark +
-                " " +
-                super.toString() +
+        return "Student {\n" +
+                super.toString() + '\n' +
+                "studentId : " + studentId + '\n' +
+                "midMark : " + midMark + '\n' +
                 '}' ;
     }
 }

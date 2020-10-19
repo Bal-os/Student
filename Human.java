@@ -1,11 +1,14 @@
 package prog.kiev;
 
+import java.io.Serializable;
+
 enum Sex{
     MALE,
     FEMALE;
 }
 
-public class Human {
+public class Human implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String surname;
     private String name;
     private Sex sex;
@@ -40,11 +43,11 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{" +
-                "surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", sex=" + sex +
-                ", age=" + age +
+        return "Human {\n" +
+                "surname : " + surname + '\n' +
+                "name : " + name + '\n' +
+                "sex : " + sex + '\n' +
+                "age : " + age + '\n' +
                 '}';
     }
 }

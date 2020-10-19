@@ -1,19 +1,28 @@
 package prog.kiev;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Arrays;
+import java.util.List;
 
-public class Group implements Recruite{
-    private static final int NUMOFSTUDS = 10;
+public class Group implements Recruite, Serializable {
+    public static final long serialVersionUID=1L;
+    public static final int NUMOFSTUDS = 10;
     Student arr[] = new Student[NUMOFSTUDS];
-    String name;
-    int count = 0;
+    String name = new String();
+    private int count = 0;
 
     private Comparator surnamesCompare = new HumanSurnameComparator();
     private Comparator marksComparator = new StudentMarksComparator();
     private Comparator ageComparator = new HumanAgeComparator();
+    public Group() {
+    }
+
+    public Group(String name) {
+        this.name = name;
+    }
 
     public Group(String name, Student ... arr) throws OutOfGroupException{
         if(arr.length > 0) {
@@ -29,6 +38,8 @@ public class Group implements Recruite{
             throw new OutOfGroupException("too much students");
         }
     }
+
+    public int size() {return count;}
 
     public void sort(){
         Arrays.sort(arr, surnamesCompare);
@@ -78,7 +89,7 @@ public class Group implements Recruite{
 
     @Override
     public Student[] mobilize() {
-        ArrayList<Student> ans = new ArrayList<Student>();
+        List<Student> ans = new ArrayList<Student>();
         this.sortByAge();
         for(Student i: arr){
             if(i.getAge() < 18){
@@ -93,10 +104,12 @@ public class Group implements Recruite{
 
     @Override
     public String toString() {
-        String ans = "";
+        String ans = "Group {\n" +
+               "name : " + this.name + '\n';
         for (int i = 0; i < count; i++) {
             ans += arr[i].toString() + '\n';
         }
+        ans += '}';
         return ans;
     }
 }

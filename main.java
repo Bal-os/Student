@@ -1,5 +1,7 @@
 package prog.kiev;
 
+import java.io.*;
+
 public class main {
     private static void test(){
         Human person = new Human("Tom", "White", Sex.MALE, 14);
@@ -24,6 +26,13 @@ public class main {
         }catch (OutOfGroupException e){
             System.out.println(e.getMessage());
         }
+
+        Group gg = new Group("qq");
+        HumansReader aa = new HumansConsoleReader();
+        gg = aa.read(new Group());
+        GroupWriter gw = new GroupConsoleWriter();
+        gw.print(gg);
+
 
         try {
             System.out.println(DO);
