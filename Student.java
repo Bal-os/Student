@@ -36,4 +36,18 @@ public class Student extends Human implements Serializable{
                 "midMark : " + midMark + '\n' +
                 '}' ;
     }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(studentId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        else if(obj==null) return false;
+        else if(this.getClass()!=obj.getClass()) return false;
+        Student st = (Student) obj;
+        return st.studentId == this.studentId;
+    }
 }

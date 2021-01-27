@@ -59,7 +59,7 @@ public class HumansFileReader implements HumansReader{
         try (Scanner input = new Scanner(file)) {
             input.next();
             String name = parseLine(input.next());
-            group = new Group(name);
+            group = new ArrayGroup(name);
             String s;
             while((s = input.next()) != null){
                 if(s.equals("{")) break;

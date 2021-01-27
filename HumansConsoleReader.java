@@ -49,7 +49,7 @@ public class HumansConsoleReader implements HumansReader{
                     else {
                         System.out.println("Enter name of group");
                         String name = input.next();
-                        group = new Group(name);
+                        group = new ArrayGroup(name);
                         flag = false;
                     }
                 }

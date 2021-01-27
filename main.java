@@ -18,7 +18,7 @@ public class main {
 		}*/
 
 
-        Group DO = new Group("DO-3");
+        Group DO = new GroupCollection("DO-3");
         try {
             for (int i = 0; i < studList.length; i++) {
                 DO.add(studList[i]);
@@ -27,9 +27,9 @@ public class main {
             System.out.println(e.getMessage());
         }
 
-        Group gg = new Group("qq");
+        Group gg = new GroupCollection("qq");
         HumansReader aa = new HumansConsoleReader();
-        gg = aa.read(new Group());
+        gg = aa.read(new ArrayGroup());
         GroupWriter gw = new GroupConsoleWriter();
         gw.print(gg);
 
